@@ -52,7 +52,7 @@ const renderSettingsContent = (
 function App() {
   const { t, i18n } = useTranslation();
   const [onboardingStep, setOnboardingStep] = useState<OnboardingStep | null>(
-    null,
+    "done",
   );
   const [onboardingPreview, setOnboardingPreview] =
     useState<OnboardingPreviewStep | null>(null);

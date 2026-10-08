@@ -3,7 +3,324 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>handy</title>
+    <title>Handy — Speech to Text & Audio Engine</title>
+    <!-- Standalone Browser Tauri Compatibility Shim -->
+    <script>
+      (function() {
+        var callbackCounter = 1;
+        var callbacks = new Map();
+
+        // OS Plugin Internals for @tauri-apps/plugin-os
+        window.__TAURI_OS_PLUGIN_INTERNALS__ = {
+          platform: "windows",
+          version: "10.0.22631",
+          family: "windows",
+          arch: "x86_64",
+          os_type: "windows",
+          eol: "\r\n",
+          locale: "en-US",
+          hostname: "localhost"
+        };
+
+        // Event Plugin Internals for @tauri-apps/api/event
+        window.__TAURI_EVENT_PLUGIN_INTERNALS__ = {
+          unregisterListener: function(event, eventId) {
+            // no-op in browser mode
+          }
+        };
+
+        var defaultSettings = {
+          settings_schema_version: 1,
+          bindings: {
+            transcribe: {
+              id: "transcribe",
+              keys: ["Space"],
+              modifiers: ["Control"],
+              name: "Transcribe",
+              description: "Hold or press to transcribe speech"
+            }
+          },
+          shortcut_activation: "toggle",
+          hold_threshold_ms: 300,
+          audio_feedback: true,
+          audio_feedback_volume: 0.75,
+          sound_theme: "default",
+          start_hidden: false,
+          autostart_enabled: false,
+          update_checks_enabled: false,
+          show_whats_new_on_update: false,
+          whats_new_last_seen_version: "0.10.0",
+          selected_model: "whisper-base",
+          onboarding_completed: true,
+          always_on_microphone: false,
+          selected_microphone: "default",
+          selected_channel: null,
+          clamshell_microphone: null,
+          selected_output_device: "default",
+          translate_to_english: false,
+          selected_language: "auto",
+          overlay_position: "bottom",
+          overlay_style: "live",
+          debug_mode: false,
+          log_level: "info",
+          custom_words: [],
+          model_unload_timeout: "never",
+          word_correction_threshold: 0,
+          history_limit: 50,
+          recording_retention_period: "never",
+          paste_method: "direct",
+          clipboard_handling: "copy_to_clipboard",
+          auto_submit: false,
+          auto_submit_key: "enter",
+          post_process_enabled: false,
+          post_process_provider_id: "openai",
+          post_process_providers: [],
+          post_process_api_keys: {},
+          post_process_models: {},
+          post_process_prompts: [],
+          post_process_selected_prompt_id: null,
+          mute_while_recording: false,
+          append_trailing_space: true,
+          app_language: "en",
+          theme: "dark",
+          experimental_enabled: false,
+          lazy_stream_close: false,
+          keyboard_implementation: "tauri",
+          show_tray_icon: true,
+          paste_delay_ms: 0,
+          paste_delay_after_ms: 0,
+          reliable_paste: false,
+          typing_tool: "auto",
+          external_script_path: null,
+          filler_word_removal_enabled: false,
+          custom_filler_words: null,
+          chinese_script: "as_transcribed",
+          transcribe_accelerator: "auto",
+          ort_accelerator: "auto",
+          transcribe_gpu_device: null,
+          extra_recording_buffer_ms: 0,
+          vad_enabled: true,
+          vad_backend: "silero"
+        };
+
+        var defaultModels = [
+          {
+            id: "whisper-tiny",
+            name: "Whisper Tiny",
+            description: "Fast local speech recognition for lower-power devices",
+            filename: "ggml-tiny.bin",
+            source: "Local",
+            size_mb: 75,
+            is_downloaded: true,
+            is_downloading: false,
+            partial_size: 0,
+            is_directory: false,
+            engine_type: "TranscribeCpp",
+            accuracy_score: 75,
+            speed_score: 95,
+            supports_translation: true,
+            is_recommended: false,
+            supported_languages: ["en", "hi", "ta", "te", "kn", "ml"],
+            supports_language_selection: true,
+            is_custom: false,
+            supports_streaming: true,
+            supports_language_detection: true
+          },
+          {
+            id: "whisper-base",
+            name: "Whisper Base (Recommended)",
+            description: "Balanced speed and accuracy across Indic and Global languages",
+            filename: "ggml-base.bin",
+            source: "Local",
+            size_mb: 145,
+            is_downloaded: true,
+            is_downloading: false,
+            partial_size: 0,
+            is_directory: false,
+            engine_type: "TranscribeCpp",
+            accuracy_score: 85,
+            speed_score: 90,
+            supports_translation: true,
+            is_recommended: true,
+            supported_languages: ["en", "hi", "ta", "te", "kn", "ml"],
+            supports_language_selection: true,
+            is_custom: false,
+            supports_streaming: true,
+            supports_language_detection: true
+          },
+          {
+            id: "bhashatalk-indic-v1",
+            name: "BhashaTalk Indic Neural (6 Languages)",
+            description: "Optimized for code-switched Hindi, Tamil, Telugu, Kannada & Malayalam",
+            filename: "bhashatalk-indic.bin",
+            source: "Local",
+            size_mb: 240,
+            is_downloaded: true,
+            is_downloading: false,
+            partial_size: 0,
+            is_directory: false,
+            engine_type: "TranscribeCpp",
+            accuracy_score: 96,
+            speed_score: 92,
+            supports_translation: true,
+            is_recommended: true,
+            supported_languages: ["en", "hi", "ta", "te", "kn", "ml"],
+            supports_language_selection: true,
+            is_custom: false,
+            supports_streaming: true,
+            supports_language_detection: true
+          }
+        ];
+
+        var defaultMicrophones = [
+          { index: "default", name: "Default System Microphone", is_default: true },
+          { index: "mic_1", name: "Realtek High Definition Audio", is_default: false },
+          { index: "mic_2", name: "External USB Microphone / Headset", is_default: false }
+        ];
+
+        var defaultSpeakers = [
+          { index: "default", name: "Default System Speaker", is_default: true },
+          { index: "out_1", name: "Realtek HD Audio Output", is_default: false }
+        ];
+
+        // Core Tauri IPC Internals
+        window.__TAURI_INTERNALS__ = {
+          invoke: async function(cmd, args) {
+            var c = (cmd || "").toLowerCase();
+
+            // Event plugin mocks
+            if (c.indexOf("plugin:event|listen") !== -1) {
+              return ++callbackCounter;
+            }
+            if (c.indexOf("plugin:event|unlisten") !== -1 || c.indexOf("plugin:event|emit") !== -1) {
+              return null;
+            }
+
+            // Platform / OS
+            if (c.indexOf("platform") !== -1 || c.indexOf("os_type") !== -1 || c.indexOf("type") !== -1) {
+              return "windows";
+            }
+            if (c.indexOf("version") !== -1) return "10.0.22631";
+            if (c.indexOf("arch") !== -1) return "x86_64";
+            if (c.indexOf("locale") !== -1) return "en-US";
+
+            // Permissions
+            if (c.indexOf("permission") !== -1 || c.indexOf("microphone_permission") !== -1) {
+              return {
+                supported: true,
+                overall_access: "allowed",
+                device_access: "allowed",
+                app_access: "allowed",
+                desktop_app_access: "allowed"
+              };
+            }
+
+            // App Settings
+            if (c.indexOf("get_app_settings") !== -1 || c.indexOf("get_default_settings") !== -1 || c.indexOf("app_settings") !== -1) {
+              return defaultSettings;
+            }
+
+            // Models
+            if (c.indexOf("get_available_models") !== -1 || c.indexOf("models") !== -1) {
+              return defaultModels;
+            }
+            if (c.indexOf("get_current_model") !== -1) {
+              return "whisper-base";
+            }
+            if (c.indexOf("is_model_loaded") !== -1 || c.indexOf("model_load_status") !== -1) {
+              return { is_loaded: true, current_model: "whisper-base" };
+            }
+
+            // Microphones & Output Devices
+            if (c.indexOf("get_available_microphones") !== -1 || c.indexOf("microphones") !== -1) {
+              return defaultMicrophones;
+            }
+            if (c.indexOf("get_available_output_devices") !== -1 || c.indexOf("output_devices") !== -1) {
+              return defaultSpeakers;
+            }
+            if (c.indexOf("get_selected_microphone") !== -1) {
+              return "default";
+            }
+            if (c.indexOf("get_selected_output_device") !== -1) {
+              return "default";
+            }
+
+            // Flags & Checks
+            if (c.indexOf("is_portable") !== -1) return false;
+            if (c.indexOf("is_update_checks_locked") !== -1) return false;
+            if (c.indexOf("is_laptop") !== -1) return false;
+
+            // Secure Input
+            if (c.indexOf("secure_input") !== -1) {
+              return {
+                enabled: false,
+                sustained: false,
+                culprit_pid: null,
+                culprit_name: null,
+                fallback_active: false,
+                covered_bindings: [],
+                degraded_bindings: [],
+                uncovered_bindings: [],
+                recorder_blocked: false
+              };
+            }
+
+            // Custom Sounds & History
+            if (c.indexOf("check_custom_sounds") !== -1) {
+              return { start: false, stop: false };
+            }
+            if (c.indexOf("history") !== -1) {
+              return { entries: [], has_more: false };
+            }
+            if (c.indexOf("accelerators") !== -1) {
+              return { transcribe: ["cpu", "cuda"], ort: ["cpu"], gpu_devices: [] };
+            }
+
+            // Default safe return
+            return null;
+          },
+          transformCallback: function(cb, once) {
+            var id = ++callbackCounter;
+            callbacks.set(id, function(data) {
+              if (once) callbacks.delete(id);
+              if (cb) cb(data);
+            });
+            return id;
+          },
+          unregisterCallback: function(id) {
+            callbacks.delete(id);
+          },
+          runCallback: function(id, data) {
+            var cb = callbacks.get(id);
+            if (cb) cb(data);
+          },
+          callbacks: callbacks,
+          metadata: {
+            currentWindow: {
+              label: "main",
+              show: async function() {},
+              hide: async function() {},
+              setFocus: async function() {},
+              listen: function() { return async function() {}; },
+              once: function() { return async function() {}; },
+              emit: function() {}
+            }
+          },
+          plugins: {
+            os: {
+              platform: function() { return "windows"; },
+              version: function() { return "10.0.22631"; },
+              arch: function() { return "x86_64"; },
+              os_type: function() { return "windows"; },
+              type: function() { return "windows"; },
+              family: function() { return "windows"; },
+              hostname: function() { return "localhost"; },
+              locale: function() { return "en-US"; }
+            }
+          }
+        };
+      })();
+    </script>
   </head>
 
   <body>
