@@ -1,0 +1,24 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment secrets
+.env
+.env.local
+
+# Android builds
+.gradle/
+android_app/.gradle/
+android_app/build/
+android_app/app/build/
+*.iml
+.idea/
+
+# Tauri / Rust builds
+handy/src-tauri/target/
+
+# OS metadata
+.DS_Store
+Thumbs.db

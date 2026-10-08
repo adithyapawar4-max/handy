@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.BhashaTalkAI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#06B6D4</item>
+        <item name="colorPrimaryVariant">#2563EB</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#080C15</item>
+        <item name="android:windowBackground">#080C15</item>
+    </style>
+</resources>

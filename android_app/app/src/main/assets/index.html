@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>BhashaTalk AI — Speak Naturally. Connect Globally.</title>
+  <meta name="description" content="Production-grade realtime multilingual conversational voice AI for Indian languages (English, Tamil, Hindi, Telugu, Kannada, Malayalam) with low latency and code-switching support.">
+  <meta name="theme-color" content="#F8FAFC">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Device Outer Wrapper for Hackathon / Mobile Preview -->
+  <div class="device-container" id="deviceContainer">
+    <!-- Phone Chassis Frame -->
+    <div class="mobile-phone">
+      <!-- Status Bar -->
+      <div class="mobile-status-bar">
+        <span class="status-time" id="statusClock">10:42</span>
+        <div class="dynamic-island" id="dynamicIsland">
+          <span class="island-dot"></span>
+          <span class="island-text" id="islandText">Real-time AI connected</span>
+        </div>
+        <div class="status-icons">
+          <svg class="sys-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 20V4"/></svg>
+          <svg class="sys-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          <span class="battery-pct">98%</span>
+        </div>
+      </div>
+
+      <!-- App Screens Container -->
+      <main class="app-viewport">
+
+        <!-- ============================================== -->
+        <!-- SCREEN 1: SPLASH SCREEN                        -->
+        <!-- ============================================== -->
+        <section class="screen active" id="screenSplash">
+          <div class="splash-content">
+            <div class="splash-logo-glow">
+              <div class="logo-orbit"></div>
+              <div class="logo-core">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" x2="12" y1="19" y2="22"/>
+                </svg>
+              </div>
+            </div>
+            <h1 class="splash-title">BhashaTalk <span class="gradient-text">AI</span></h1>
+            <p class="splash-tagline">“Speak Naturally. Connect Globally.”</p>
+            <div class="splash-waveforms">
+              <span class="sw-bar"></span>
+              <span class="sw-bar"></span>
+              <span class="sw-bar"></span>
+              <span class="sw-bar"></span>
+              <span class="sw-bar"></span>
+            </div>
+            <p class="splash-footer">HackNex 2026 • HNX26EPS02</p>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 2: ONBOARDING SCREEN                    -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenOnboarding">
+          <div class="onboarding-slider" id="onboardingSlider">
+            <!-- Slide 1 -->
+            <div class="onboarding-slide active" data-slide="0">
+              <div class="slide-illustration">
+                <div class="ai-orb pulse-glow">
+                  <span class="icon-voice">🎙️</span>
+                </div>
+              </div>
+              <h2 class="slide-title">Talk Naturally</h2>
+              <p class="slide-desc">Speak in your natural voice instead of typing. Fast, effortless, and hands-free conversational intelligence.</p>
+            </div>
+            <!-- Slide 2 -->
+            <div class="onboarding-slide" data-slide="1">
+              <div class="slide-illustration">
+                <div class="language-constellation">
+                  <span class="lang-node node-ta">தமிழ்</span>
+                  <span class="lang-node node-hi">हिन्दी</span>
+                  <span class="lang-node node-te">తెలుగు</span>
+                  <span class="lang-node node-kn">ಕನ್ನಡ</span>
+                  <span class="lang-node node-ml">മലയാളം</span>
+                  <span class="lang-node node-en">EN</span>
+                </div>
+              </div>
+              <h2 class="slide-title">Indian Languages</h2>
+              <p class="slide-desc">Full support for Tamil, Hindi, Telugu, Kannada, Malayalam & English with sub-sentence code-switching.</p>
+            </div>
+            <!-- Slide 3 -->
+            <div class="onboarding-slide" data-slide="2">
+              <div class="slide-illustration">
+                <div class="speed-meter-graphic">
+                  <div class="speed-ring">
+                    <span class="speed-number">&lt; 1.5s</span>
+                    <span class="speed-label">LATENCY</span>
+                  </div>
+                </div>
+              </div>
+              <h2 class="slide-title">Real-Time Conversation</h2>
+              <p class="slide-desc">Speak naturally and receive an immediate spoken response. Lightning-fast neural speech recognition and synthesis.</p>
+            </div>
+          </div>
+
+          <div class="onboarding-footer">
+            <div class="slide-dots" id="slideDots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="slide-buttons">
+              <button class="btn btn-secondary" id="btnSkipOnboarding">Skip</button>
+              <button class="btn btn-primary" id="btnNextOnboarding">Next</button>
+              <button class="btn btn-primary hidden" id="btnGetStarted">Get Started →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 3: HOME DASHBOARD (REDESIGNED OPTION 1) -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenHome">
+          <!-- Dynamic Header -->
+          <header class="home-topbar">
+            <div class="brand-cluster">
+              <div class="brand-symbol">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+              </div>
+              <div class="brand-text-col">
+                <span class="brand-title">BhashaTalk <span class="gradient-text">AI</span></span>
+                <span class="brand-badge-pill" id="homeModeBadge">⚡ REAL AI MODE</span>
+              </div>
+            </div>
+            <div class="topbar-actions">
+              <button class="glass-icon-btn" id="btnHeaderSettings" aria-label="Settings">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </header>
+
+          <!-- Multilingual Rotating Greeting Banner -->
+          <div class="greeting-banner">
+            <div class="rotating-greeting-pill" id="rotatingGreeting">
+              <span class="greeting-anim-dot"></span>
+              <span class="greeting-text" id="greetingText">வணக்கம் • Namaste • Welcome</span>
+            </div>
+            <h1 class="hero-headline">What would you like to talk about?</h1>
+            <p class="hero-subtext">Speak naturally in Indian languages or seamless code-switching.</p>
+          </div>
+
+          <!-- Data-Driven KPI Analytics Strip -->
+          <div class="kpi-strip">
+            <div class="kpi-card">
+              <span class="kpi-label">RESPONSE LATENCY</span>
+              <div class="kpi-value-row">
+                <span class="kpi-val" id="homeKpiLatency">&lt; 1.5s</span>
+                <span class="kpi-tag green">&lt; 1.6s Target</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">INDIC MODELS</span>
+              <div class="kpi-value-row">
+                <span class="kpi-val">6 Engines</span>
+                <span class="kpi-tag dark">Neural ASR</span>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">CODE-SWITCHING</span>
+              <div class="kpi-value-row">
+                <span class="kpi-val">Realtime</span>
+                <span class="kpi-tag amber">Dual-Dialect</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Audio Hub: Multi-Layer Pulsing Voice Orb & Waveform -->
+          <div class="hero-audio-hub">
+            <div class="ambient-glow-layer"></div>
+            <div class="orb-container">
+              <div class="orb-ring orb-ring-3"></div>
+              <div class="orb-ring orb-ring-2"></div>
+              <div class="orb-ring orb-ring-1"></div>
+              <button class="voice-orb-btn" id="btnHomeMic" aria-label="Tap to Speak">
+                <div class="orb-core">
+                  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="22"/>
+                  </svg>
+                </div>
+              </button>
+            </div>
+
+            <!-- Animated Sound Wave Spectrum -->
+            <div class="spectrum-visualizer">
+              <span class="spec-bar b1"></span>
+              <span class="spec-bar b2"></span>
+              <span class="spec-bar b3"></span>
+              <span class="spec-bar b4"></span>
+              <span class="spec-bar b5"></span>
+              <span class="spec-bar b6"></span>
+              <span class="spec-bar b7"></span>
+              <span class="spec-bar b8"></span>
+              <span class="spec-bar b9"></span>
+              <span class="spec-bar b10"></span>
+            </div>
+
+            <!-- Dynamic State Pill -->
+            <div class="audio-state-pill" id="homeStatePill">
+              <span class="asp-dot"></span>
+              <span id="homeStateLabel">Tap to Speak</span>
+            </div>
+          </div>
+
+          <!-- Quick Indic Language Switcher (Interactive Carousel) -->
+          <div class="quick-lang-section">
+            <div class="section-top-row">
+              <span class="row-label">SELECT INPUT LANGUAGE</span>
+              <span class="latency-benchmark-pill">&lt; 120ms Latency</span>
+            </div>
+            <div class="indic-carousel" id="indicCarousel">
+              <div class="indic-pill-card active" data-lang="Auto">
+                <span class="ipc-script">🌐 Auto</span>
+                <span class="ipc-name">Smart Detect</span>
+                <span class="ipc-badge">&lt; 45ms</span>
+              </div>
+              <div class="indic-pill-card" data-lang="Tamil">
+                <span class="ipc-script">தமிழ்</span>
+                <span class="ipc-name">Tamil</span>
+                <span class="ipc-badge">&lt; 95ms</span>
+              </div>
+              <div class="indic-pill-card" data-lang="Hindi">
+                <span class="ipc-script">हिन्दी</span>
+                <span class="ipc-name">Hindi</span>
+                <span class="ipc-badge">&lt; 90ms</span>
+              </div>
+              <div class="indic-pill-card" data-lang="Telugu">
+                <span class="ipc-script">తెలుగు</span>
+                <span class="ipc-name">Telugu</span>
+                <span class="ipc-badge">&lt; 105ms</span>
+              </div>
+              <div class="indic-pill-card" data-lang="Kannada">
+                <span class="ipc-script">ಕನ್ನಡ</span>
+                <span class="ipc-name">Kannada</span>
+                <span class="ipc-badge">&lt; 110ms</span>
+              </div>
+              <div class="indic-pill-card" data-lang="Malayalam">
+                <span class="ipc-script">മലയാളം</span>
+                <span class="ipc-name">Malayalam</span>
+                <span class="ipc-badge">&lt; 115ms</span>
+              </div>
+              <div class="indic-pill-card" data-lang="English">
+                <span class="ipc-script">English</span>
+                <span class="ipc-name">Anchor</span>
+                <span class="ipc-badge">&lt; 80ms</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Voice Conversation Modes / Presets -->
+          <div class="modes-section">
+            <div class="section-top-row">
+              <span class="row-label">CONVERSATION PRESETS</span>
+              <span class="row-link" id="linkViewAllHistory">Recent History →</span>
+            </div>
+            <div class="modes-grid">
+              <div class="mode-card" id="modeCasual">
+                <div class="mode-icon-box cyan">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <div class="mode-meta">
+                  <h4>Real-time Translation</h4>
+                  <p>Bidirectional English &amp; Indic voice</p>
+                </div>
+                <span class="mode-arrow">→</span>
+              </div>
+
+              <div class="mode-card" id="modeCodeSwitch">
+                <div class="mode-icon-box amber">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+                </div>
+                <div class="mode-meta">
+                  <h4>Dialect &amp; Code-Switch</h4>
+                  <p>Tanglish, Hinglish &amp; mixed speech</p>
+                </div>
+                <span class="mode-badge amber">Challenge</span>
+              </div>
+
+              <div class="mode-card" id="modeLanguageLab">
+                <div class="mode-icon-box purple">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.14 19.82A2 2 0 0 0 5.86 23h12.28a2 2 0 0 0 1.72-3.18L14 9.31V2"/></svg>
+                </div>
+                <div class="mode-meta">
+                  <h4>Multilingual Roleplay</h4>
+                  <p>Scenarios, job interviews &amp; cafe</p>
+                </div>
+                <span class="mode-badge purple">Lab</span>
+              </div>
+
+              <div class="mode-card" id="modePerformance">
+                <div class="mode-icon-box green">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <div class="mode-meta">
+                  <h4>Accent &amp; Fluency Coach</h4>
+                  <p>Real-time latency &amp; ASR telemetry</p>
+                </div>
+                <span class="mode-arrow">→</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 4: LIVE CONVERSATION (CORE SCREEN)      -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenConversation">
+          <!-- Compact Top Header -->
+          <header class="conv-header-compact">
+            <button class="conv-back-chevron" id="btnBackFromConv" aria-label="Back">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+            </button>
+            <div class="conv-center-badge">
+              <span class="conv-center-dot"></span>
+              <span class="conv-center-title">BhashaTalk AI</span>
+              <span class="conv-center-sep">•</span>
+              <span class="conv-center-status" id="liveLangBadgeText">Auto-Detecting</span>
+            </div>
+            <div class="conv-ws-latency-pill" id="convLatencyChip">
+              <span class="ws-bolt">⚡</span>
+              <span id="convLatencyText">84ms • WebSocket</span>
+            </div>
+          </header>
+
+          <!-- Conversational Stream -->
+          <div class="conv-transcript-container" id="transcriptContainer">
+            <!-- Initial AI Response Card -->
+            <div class="chat-bubble ai-bubble intro-bubble">
+              <div class="bubble-header">
+                <div class="bubble-avatar-badge">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                </div>
+                <span class="speaker-tag">BHASHATALK AI</span>
+                <div class="audio-wave-indicator" id="aiAudioWave">
+                  <span class="wave-bar w1"></span>
+                  <span class="wave-bar w2"></span>
+                  <span class="wave-bar w3"></span>
+                </div>
+                <span class="bubble-time">Just now</span>
+              </div>
+              <p class="bubble-body">Vanakkam! Namaste! Speak to me in any Indic language or mix naturally.</p>
+              <div class="bubble-footer-strip">
+                <span class="translation-toggle-tag">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  Bilingual English / Indic
+                </span>
+                <span class="bubble-model-tag">Neural STT &amp; TTS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Audio Waveform Live Visualizer Canvas -->
+          <div class="waveform-box">
+            <canvas id="waveformCanvas" width="360" height="42"></canvas>
+          </div>
+
+          <!-- Bottom Voice Interaction Area -->
+          <!-- Floating In-Call Control Bar -->
+          <div class="floating-in-call-bar">
+            <button class="in-call-btn" id="btnConvReplay" title="Replay Audio">
+              <div class="in-call-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                </svg>
+              </div>
+              <span class="in-call-label">Replay</span>
+            </button>
+            <button class="in-call-btn" id="btnConvPause" title="Pause Speech">
+              <div class="in-call-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="4" width="4" height="16"/>
+                  <rect x="14" y="4" width="4" height="16"/>
+                </svg>
+              </div>
+              <span class="in-call-label">Pause</span>
+            </button>
+            <button class="in-call-btn" id="btnConvMute" title="Mute Mic">
+              <div class="in-call-icon">
+                <svg id="muteIconSvg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/>
+                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </div>
+              <span class="in-call-label">Mute</span>
+            </button>
+            <button class="in-call-btn" id="btnConvReset" title="Clear Chat">
+              <div class="in-call-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18"/>
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                </svg>
+              </div>
+              <span class="in-call-label">Clear</span>
+            </button>
+          </div>
+
+          <!-- Hero Interactive Voice Hub: Circular Pulsing Gradient Mic Orb -->
+          <div class="hero-voice-chat-hub">
+            <div class="hub-ambient-glow" id="micWaveGlow"></div>
+            <div class="hub-wave-ring hr1"></div>
+            <div class="hub-wave-ring hr2"></div>
+            <button class="hero-voice-orb-btn" id="btnLiveMic" aria-label="Toggle Listening">
+              <div class="orb-inner-gradient">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+              </div>
+            </button>
+            <div class="hub-voice-state-tag">
+              <span class="hvs-dot"></span>
+              <span id="dockHint">Tap to Speak</span>
+            </div>
+          </div>
+
+          <!-- Contextual Suggestion Chips -->
+          <div class="contextual-chips-carousel">
+            <button class="context-chip prompt-chip" data-text="Tell me about Tamil literature.">🎙️ Tell me about Tamil literature</button>
+            <button class="context-chip prompt-chip" data-text="Order chai in Hindi.">☕ Order chai in Hindi</button>
+            <button class="context-chip prompt-chip" data-text="நாளைக்கு Chennai weather எப்படி இருக்கும்?">🌦️ Chennai weather</button>
+            <button class="context-chip prompt-chip" data-text="Kal meeting kitne baje hai?">📅 Meeting in Hinglish</button>
+            <button class="context-chip prompt-chip" data-text="Explain artificial intelligence in Telugu.">💡 Explain AI in Telugu</button>
+            <button class="context-chip prompt-chip" data-text="Bengaluru traffic updates in Kannada.">🚦 Bengaluru traffic in Kannada</button>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 5: PERFORMANCE MONITOR (JUDGES)         -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenPerformance">
+          <header class="section-header">
+            <button class="back-button" id="btnBackFromPerf">←</button>
+            <h2>Performance Dashboard</h2>
+            <button class="icon-button" id="btnRefreshPerf" title="Refresh Telemetry">🔄</button>
+          </header>
+
+          <div class="perf-content">
+            <!-- Latency Score Banner -->
+            <div class="perf-score-card">
+              <div class="score-top">
+                <span class="score-label">TOTAL RESPONSE LATENCY</span>
+                <span class="score-badge green-badge">&lt; 1.6s Target</span>
+              </div>
+              <div class="score-big" id="perfTotalTime">1.51 <span class="sec-unit">sec</span></div>
+              <p class="score-sub" id="perfSubStatus">Speech-to-Speech End-to-End Latency</p>
+            </div>
+
+            <!-- Pipeline Breakdown Cards -->
+            <h3 class="section-subtitle">LATENCY BREAKDOWN</h3>
+            <div class="breakdown-grid">
+              <div class="breakdown-item">
+                <div class="bi-header">
+                  <span class="bi-dot dot-lang"></span>
+                  <span class="bi-title">Language Detection</span>
+                </div>
+                <div class="bi-value" id="perfLangTime">95 ms</div>
+                <div class="bi-bar"><div class="bi-fill fill-lang" style="width: 15%"></div></div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="bi-header">
+                  <span class="bi-dot dot-stt"></span>
+                  <span class="bi-title">Speech-to-Text (ASR)</span>
+                </div>
+                <div class="bi-value" id="perfSttTime">420 ms</div>
+                <div class="bi-bar"><div class="bi-fill fill-stt" style="width: 40%"></div></div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="bi-header">
+                  <span class="bi-dot dot-ai"></span>
+                  <span class="bi-title">AI Understanding & LLM</span>
+                </div>
+                <div class="bi-value" id="perfAiTime">685 ms</div>
+                <div class="bi-bar"><div class="bi-fill fill-ai" style="width: 55%"></div></div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="bi-header">
+                  <span class="bi-dot dot-tts"></span>
+                  <span class="bi-title">Text-to-Speech (TTS)</span>
+                </div>
+                <div class="bi-value" id="perfTtsTime">310 ms</div>
+                <div class="bi-bar"><div class="bi-fill fill-tts" style="width: 30%"></div></div>
+              </div>
+            </div>
+
+            <!-- Accuracy & Turn Telemetry -->
+            <h3 class="section-subtitle">ACCURACY & CONTEXT METRICS</h3>
+            <div class="metrics-row">
+              <div class="metric-card">
+                <span class="metric-label">ASR Confidence</span>
+                <span class="metric-val" id="perfAsrConf">94%</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Lang Confidence</span>
+                <span class="metric-val" id="perfLangConf">96%</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Turns Maintained</span>
+                <span class="metric-val" id="perfTurnsCount">4 turns</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Words Recognized</span>
+                <span class="metric-val" id="perfWordsCount">12 words</span>
+              </div>
+            </div>
+
+            <!-- Visual Latency Pipeline Diagram -->
+            <div class="pipeline-card">
+              <h4>Realtime Voice Pipeline Execution</h4>
+              <div class="pipeline-diagram">
+                <div class="pipe-step"><span>Mic</span></div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step"><span>Lang ID</span></div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step"><span>ASR</span></div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step"><span>LLM</span></div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step"><span>TTS</span></div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step"><span>Audio</span></div>
+              </div>
+            </div>
+
+            <!-- Historical Benchmark Runs -->
+            <h3 class="section-subtitle">RECENT BENCHMARK LOG</h3>
+            <div class="perf-log-list" id="perfLogList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 6: LANGUAGE TEST LAB (JUDGES)           -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenLanguageLab">
+          <header class="section-header">
+            <button class="back-button" id="btnBackFromLangLab">←</button>
+            <h2>Language Test Lab</h2>
+            <span class="badge-tag">Judge Suite</span>
+          </header>
+
+          <div class="lab-intro">
+            <p>Test individual Indian language neural models with instant speech-in/speech-out verification and real-time latency measurement.</p>
+          </div>
+
+          <div class="lang-cards-list" id="langCardsList">
+            <!-- 6 Language Cards Rendered via JS -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 7: CODE-SWITCH CHALLENGE (JUDGES)       -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenCodeSwitchLab">
+          <header class="section-header">
+            <button class="back-button" id="btnBackFromCodeSwitch">←</button>
+            <h2>Code-Switch Challenge</h2>
+            <span class="badge-tag highlight">Innovation</span>
+          </header>
+
+          <div class="lab-intro">
+            <p>Demonstrates mixed-language understanding (e.g. Tamil + English, Hindi + English) where native Indian vocabulary and English loan terms occur in the same sentence.</p>
+          </div>
+
+          <!-- Predefined Code-Switch Showcase Items -->
+          <div class="cs-challenges-list" id="csChallengesList">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Live Custom Code-Switch Tester -->
+          <div class="custom-cs-tester">
+            <h4>Live Custom Sentence Testing</h4>
+            <div class="input-with-button">
+              <input type="text" id="inputCustomCS" placeholder="Enter mixed sentence or speak..." value="நாளைக்கு college போகணுமா?">
+              <button class="btn btn-primary" id="btnRunCustomCS">Analyze</button>
+            </div>
+            <div class="cs-result-preview hidden" id="csResultPreview">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 8: CONVERSATION HISTORY                 -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenHistory">
+          <header class="section-header">
+            <button class="back-button" id="btnBackFromHistory">←</button>
+            <h2>Conversation History</h2>
+            <button class="icon-button" id="btnClearAllHistory" title="Clear All">🗑️</button>
+          </header>
+
+          <div class="history-content" id="historyListContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 9: SETTINGS                             -->
+        <!-- ============================================== -->
+        <section class="screen" id="screenSettings">
+          <header class="section-header">
+            <button class="back-button" id="btnBackFromSettings">←</button>
+            <h2>Settings</h2>
+            <span class="status-indicator"></span>
+          </header>
+
+          <div class="settings-content">
+            <!-- Operation Mode Toggle -->
+            <div class="settings-group">
+              <h3 class="group-title">HACKATHON RUNTIME MODE</h3>
+              <div class="mode-toggle-card">
+                <div class="mode-info">
+                  <strong id="modeTitle">REAL AI MODE</strong>
+                  <p id="modeDesc">Live API & contextual intelligence pipeline</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="toggleDemoMode">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Language Preferences -->
+            <div class="settings-group">
+              <h3 class="group-title">LANGUAGE RECOGNITION</h3>
+              <div class="setting-row">
+                <label for="selectInputLang">Input Language Policy</label>
+                <select id="selectInputLang" class="setting-select">
+                  <option value="Auto" selected>Auto Detect (Multi-Language)</option>
+                  <option value="English">English</option>
+                  <option value="Tamil">Tamil (தமிழ்)</option>
+                  <option value="Hindi">Hindi (हिन्दी)</option>
+                  <option value="Telugu">Telugu (తెలుగు)</option>
+                  <option value="Kannada">Kannada (ಕನ್ನಡ)</option>
+                  <option value="Malayalam">Malayalam (മലയാളം)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Voice & Audio -->
+            <div class="settings-group">
+              <h3 class="group-title">VOICE & SYNTHESIS</h3>
+              <div class="setting-row">
+                <label for="sliderSpeechSpeed">Speech Speed (<span id="speedVal">1.0x</span>)</label>
+                <input type="range" id="sliderSpeechSpeed" min="0.5" max="2.0" step="0.1" value="1.0" class="slider-bar">
+              </div>
+              <div class="setting-row">
+                <label for="selectVoiceGender">Voice Profile</label>
+                <select id="selectVoiceGender" class="setting-select">
+                  <option value="Female">Neural Female (Default)</option>
+                  <option value="Male">Neural Male</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Conversation & Memory -->
+            <div class="settings-group">
+              <h3 class="group-title">CONVERSATION MEMORY</h3>
+              <div class="setting-row">
+                <div>
+                  <div class="setting-name">Preserve Context & Pronouns</div>
+                  <div class="setting-caption">Maintains entities like "it", "Chennai" across turns</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="toggleMemory" checked>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Appearance -->
+            <div class="settings-group">
+              <h3 class="group-title">APPEARANCE</h3>
+              <div class="setting-row">
+                <div>
+                  <div class="setting-name">Dark Mode</div>
+                  <div class="setting-caption">Futuristic deep contrast dark UI</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="toggleDarkMode">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Performance Debug -->
+            <div class="settings-group">
+              <h3 class="group-title">DIAGNOSTICS & TELEMETRY</h3>
+              <div class="setting-row">
+                <div>
+                  <div class="setting-name">Show Realtime Latency Overlay</div>
+                  <div class="setting-caption">Display STT/AI/TTS badge in conversations</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="toggleShowLatency" checked>
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="app-version-footer">
+              <p><strong>BhashaTalk AI v1.0.0</strong></p>
+              <p>HackNex 2026 Mobile Prototype</p>
+              <p>Team ID: HNX26EPS02</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Bottom Floating Mobile Navigation Bar -->
+      <nav class="mobile-nav-bar" id="mobileNavBar">
+        <button class="nav-tab active" data-target="screenHome" id="tabHome">
+          <div class="nav-icon-wrap">
+            <svg class="nav-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <span class="nav-label">Home</span>
+          <span class="nav-indicator"></span>
+        </button>
+        <button class="nav-tab" data-target="screenConversation" id="tabConversation">
+          <div class="nav-icon-wrap">
+            <svg class="nav-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+          </div>
+          <span class="nav-label">Voice Chat</span>
+          <span class="nav-indicator"></span>
+        </button>
+        <button class="nav-tab" data-target="screenLanguageLab" id="tabLab">
+          <div class="nav-icon-wrap">
+            <svg class="nav-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 2v7.31L4.14 19.82A2 2 0 0 0 5.86 23h12.28a2 2 0 0 0 1.72-3.18L14 9.31V2"/>
+            </svg>
+          </div>
+          <span class="nav-label">Lab</span>
+          <span class="nav-indicator"></span>
+        </button>
+        <button class="nav-tab" data-target="screenPerformance" id="tabPerf">
+          <div class="nav-icon-wrap">
+            <svg class="nav-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <span class="nav-label">Analytics</span>
+          <span class="nav-indicator"></span>
+        </button>
+        <button class="nav-tab" data-target="screenSettings" id="tabSettings">
+          <div class="nav-icon-wrap">
+            <svg class="nav-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <span class="nav-label">Settings</span>
+          <span class="nav-indicator"></span>
+        </button>
+      </nav>
+
+      <!-- Toast / Notification Banner -->
+      <div class="toast-banner hidden" id="toastBanner">
+        <span class="toast-icon">ℹ️</span>
+        <span class="toast-message" id="toastMessage">Notification</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
